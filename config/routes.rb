@@ -1,9 +1,22 @@
 Rails.application.routes.draw do
-  get 'pages/index'
 
-  get 'pages/job'
+  devise_for :users
 
-  get 'pages/post'
+  root 'pages#index'
+
+  get "jobs" => "pages#job"
+
+  devise_scope :user do
+    get "/login" => "devise/sessions#new"
+  end
+
+  devise_scope :user do
+    get "/register" => "devise/registrations#new"
+  end
+
+  devise_scope :user do
+    get "/profile" => "devise/registrations#edit"
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
